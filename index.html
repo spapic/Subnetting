@@ -9,10 +9,20 @@
   <body>
     <main class="container">
       <h1>Aplikacija za subnetiranje</h1>
-      <p class="subtitle">Unesi IPv4 adresu i CIDR prefiks za izračun mrežnih parametara.</p>
+      <p class="subtitle">Izračun subneta, VLSM podjele i sažimanja mrežnih adresa.</p>
 
       <section class="card">
-        <form id="subnetForm">
+        <label for="mode">Način rada</label>
+        <select id="mode">
+          <option value="basic">1) IPv4 + CIDR (osnovni izračun)</option>
+          <option value="vlsm">2) Podmreže prema broju korisnika (VLSM)</option>
+          <option value="subnetCount">3) Broj podmreža i hostova iz velike mreže</option>
+          <option value="summarize">4) Sažimanje mrežnih adresa</option>
+        </select>
+      </section>
+
+      <section class="card mode-panel" data-mode="basic">
+        <form id="basicForm">
           <label for="ip">IPv4 adresa</label>
           <input id="ip" type="text" placeholder="npr. 192.168.1.10" required />
 
@@ -23,18 +33,42 @@
         </form>
       </section>
 
+      <section class="card mode-panel" data-mode="vlsm" hidden>
+        <form id="vlsmForm">
+          <label for="baseNetwork">Velika mreža (CIDR)</label>
+          <input id="baseNetwork" type="text" placeholder="npr. 10.0.0.0/16" required />
+
+          <label for="hostRequirements">Broj korisnika po podmrežama</label>
+          <textarea id="hostRequirements" rows="3" placeholder="npr. 120,60,30,10" required></textarea>
+
+          <button type="submit">Izračunaj VLSM</button>
+        </form>
+      </section>
+
+      <section class="card mode-panel" data-mode="subnetCount" hidden>
+        <form id="subnetCountForm">
+          <label for="parentNetwork">Velika mreža (CIDR)</label>
+          <input id="parentNetwork" type="text" placeholder="npr. 172.16.0.0/16" required />
+
+          <label for="childPrefix">Subnet maska / prefiks podmreže</label>
+          <input id="childPrefix" type="number" min="0" max="32" placeholder="npr. 24" required />
+
+          <button type="submit">Izračunaj podmreže</button>
+        </form>
+      </section>
+
+      <section class="card mode-panel" data-mode="summarize" hidden>
+        <form id="summarizeForm">
+          <label for="networks">Mrežne adrese (jedna po retku, CIDR)</label>
+          <textarea id="networks" rows="5" placeholder="npr. 192.168.0.0/24\n192.168.1.0/24" required></textarea>
+
+          <button type="submit">Sažmi</button>
+        </form>
+      </section>
+
       <section class="card">
         <h2>Rezultat</h2>
-        <dl id="result" class="result-grid" hidden>
-          <dt>Mrežna adresa</dt><dd id="network"></dd>
-          <dt>Broadcast adresa</dt><dd id="broadcast"></dd>
-          <dt>Subnet maska</dt><dd id="mask"></dd>
-          <dt>Wildcard maska</dt><dd id="wildcard"></dd>
-          <dt>Prvi host</dt><dd id="firstHost"></dd>
-          <dt>Zadnji host</dt><dd id="lastHost"></dd>
-          <dt>Broj hostova</dt><dd id="hostCount"></dd>
-          <dt>Ukupno adresa</dt><dd id="addressCount"></dd>
-        </dl>
+        <div id="result"></div>
         <p id="error" class="error" aria-live="polite"></p>
       </section>
     </main>
