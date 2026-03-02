@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="hr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Subnetiranje</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <h1>Aplikacija za subnetiranje</h1>
+      <p class="subtitle">Unesi IPv4 adresu i CIDR prefiks za izračun mrežnih parametara.</p>
+
+      <section class="card">
+        <form id="subnetForm">
+          <label for="ip">IPv4 adresa</label>
+          <input id="ip" type="text" placeholder="npr. 192.168.1.10" required />
+
+          <label for="prefix">CIDR prefiks</label>
+          <input id="prefix" type="number" min="0" max="32" placeholder="npr. 24" required />
+
+          <button type="submit">Izračunaj</button>
+        </form>
+      </section>
+
+      <section class="card">
+        <h2>Rezultat</h2>
+        <dl id="result" class="result-grid" hidden>
+          <dt>Mrežna adresa</dt><dd id="network"></dd>
+          <dt>Broadcast adresa</dt><dd id="broadcast"></dd>
+          <dt>Subnet maska</dt><dd id="mask"></dd>
+          <dt>Wildcard maska</dt><dd id="wildcard"></dd>
+          <dt>Prvi host</dt><dd id="firstHost"></dd>
+          <dt>Zadnji host</dt><dd id="lastHost"></dd>
+          <dt>Broj hostova</dt><dd id="hostCount"></dd>
+          <dt>Ukupno adresa</dt><dd id="addressCount"></dd>
+        </dl>
+        <p id="error" class="error" aria-live="polite"></p>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
