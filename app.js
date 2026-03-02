@@ -229,21 +229,8 @@ function renderTable(container, rows) {
 }
 
 if (typeof document !== 'undefined') {
-  const mode = document.getElementById('mode');
-  const panels = document.querySelectorAll('.mode-panel');
   const result = document.getElementById('result');
   const error = document.getElementById('error');
-
-  function switchMode() {
-    panels.forEach((panel) => {
-      panel.hidden = panel.dataset.mode !== mode.value;
-    });
-    result.innerHTML = '';
-    error.textContent = '';
-  }
-
-  mode.addEventListener('change', switchMode);
-  switchMode();
 
   document.getElementById('basicForm').addEventListener('submit', (event) => {
     event.preventDefault();

@@ -16,6 +16,8 @@ python3 -m http.server 8000
 
 ## Funkcionalnosti
 
+Sve opcije su prikazane **odmah na istom ekranu** (bez dropdown menija), i svaka sekcija ima svoj gumb za izračun.
+
 1. **Osnovni izračun (IPv4 + CIDR)**
    - mrežna adresa, broadcast, maska, wildcard, host raspon.
 
